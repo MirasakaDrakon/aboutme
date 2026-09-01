@@ -1,665 +1,804 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0b0b0d" />
-    <title>About Me</title>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b0b0d" />
+  <title>Donation Addresses</title>
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            background: #0b0b0d;
-            color: #eee;
-            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            display: flex;
-            justify-content: center;
-            padding: 24px 14px;
-        }
+  <!-- Google Fonts & Font Awesome CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
-        main {
-            width: 100%;
-            max-width: 720px;
-        }
+  <style>
+    /* ---------- Reset & Base ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        /* ---- Header ---- */
-        header {
-            margin-bottom: 24px;
-        }
+    body {
+      min-height: 100vh;
+      background: #0b0b0d;
+      color: #eee;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      display: flex;
+      justify-content: center;
+      padding: 30px 16px;
+      background-image: radial-gradient(circle at 10% 20%, rgba(120, 80, 255, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 90% 80%, rgba(0, 200, 255, 0.06) 0%, transparent 50%);
+      background-attachment: fixed;
+      line-height: 1.5;
+    }
 
-        h1 {
-            margin: 0 0 4px;
-            font-size: 30px;
-            letter-spacing: -0.3px;
-        }
+    main {
+      width: 100%;
+      max-width: 780px;
+      animation: fadeUp 0.8s ease-out;
+    }
 
-        .sub {
-            color: #777;
-            font-size: 14px;
-        }
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
 
-        /* ---- Notes ---- */
-        .notes {
-            background: #14141a;
-            border: 1px solid #2a2a33;
-            border-radius: 14px;
-            padding: 18px 20px;
-            margin-bottom: 28px;
-            font-size: 14px;
-            line-height: 1.6;
-        }
+    /* ---------- Profile Card ---------- */
+    .profile {
+      background: rgba(18, 18, 22, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 24px;
+      padding: 28px 24px;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+      transition: border-color 0.3s;
+    }
 
-        .notes .note-icon {
-            display: inline-block;
-            margin-right: 6px;
-        }
+    .profile:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
 
-        .notes .highlight {
-            color: #f0c060;
-            font-weight: 600;
-        }
+    .avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      background: #1a1a22;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 4px rgba(120, 80, 255, 0.2);
+    }
 
-        .notes .warning {
-            color: #f06a60;
-            font-weight: 600;
-        }
+    .profile-info {
+      flex: 1;
+      min-width: 180px;
+    }
 
-        .notes .contact {
-            color: #6ab0f0;
-            font-weight: 600;
-        }
+    .profile-info h2 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
-        .notes p {
-            margin: 6px 0;
-        }
+    .profile-info .badge {
+      font-size: 12px;
+      font-weight: 500;
+      background: rgba(120, 80, 255, 0.25);
+      color: #b8a5ff;
+      padding: 2px 12px;
+      border-radius: 30px;
+      letter-spacing: 0.2px;
+    }
 
-        .notes p:first-child {
-            margin-top: 0;
-        }
-        .notes p:last-child {
-            margin-bottom: 0;
-        }
+    .profile-info .bio {
+      color: #aaa;
+      font-size: 14px;
+      margin: 4px 0 10px;
+    }
 
-        /* ---- Wallet section ---- */
-        .wallet-section {
-            margin-bottom: 32px;
-        }
+    .social-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
 
-        .wallet-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 0 0 14px 4px;
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: -0.2px;
-        }
+    .social-links a {
+      color: #888;
+      font-size: 20px;
+      transition: color 0.2s, transform 0.15s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
+      text-decoration: none;
+    }
 
-        .wallet-title .badge {
-            font-size: 11px;
-            font-weight: 500;
-            background: #1e1e26;
-            color: #999;
-            padding: 2px 10px;
-            border-radius: 20px;
-            letter-spacing: 0.3px;
-        }
+    .social-links a:hover {
+      color: #fff;
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.08);
+    }
 
-        /* ---- Address card ---- */
-        .card {
-            background: #121216;
-            border: 1px solid #24242b;
-            border-radius: 14px;
-            padding: 14px 16px;
-            margin: 8px 0;
-            transition: border-color 0.15s;
-        }
+    /* ---------- Notes ---------- */
+    .notes {
+      background: rgba(20, 20, 26, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid #2a2a33;
+      border-radius: 18px;
+      padding: 20px 24px;
+      margin-bottom: 32px;
+      font-size: 14px;
+      line-height: 1.7;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
 
-        .card:hover {
-            border-color: #35353f;
-        }
+    .notes p {
+      margin: 6px 0;
+    }
+    .notes p:first-child { margin-top: 0; }
+    .notes p:last-child { margin-bottom: 0; }
 
-        .card-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-        }
+    .notes .highlight { color: #f0c060; font-weight: 600; }
+    .notes .warning { color: #f06a60; font-weight: 600; }
+    .notes .contact { color: #6ab0f0; font-weight: 600; }
+    .notes .note-icon { margin-right: 8px; }
 
-        .name-wrap {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+    /* ---------- Wallet Section ---------- */
+    .wallet-section {
+      margin-bottom: 36px;
+    }
 
-        .name {
-            font-weight: 700;
-            font-size: 15px;
-        }
+    .wallet-title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 16px 4px;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+    }
 
-        .network {
-            color: #888;
-            font-size: 11px;
-            background: #1b1b20;
-            padding: 3px 10px;
-            border-radius: 20px;
-            letter-spacing: 0.2px;
-            font-weight: 500;
-        }
+    .wallet-title .badge {
+      font-size: 11px;
+      font-weight: 500;
+      background: #1e1e26;
+      color: #999;
+      padding: 2px 12px;
+      border-radius: 30px;
+      letter-spacing: 0.3px;
+    }
 
-        .address {
-            background: #0a0a0c;
-            border: 1px solid #1e1e26;
-            border-radius: 9px;
-            padding: 10px 13px;
-            font: 12px/1.5 ui-monospace, SFMono-Regular, Consolas, monospace;
-            color: #c0c0c0;
-            word-break: break-all;
-            user-select: all;
-        }
+    /* ---------- Address Card ---------- */
+    .card {
+      background: rgba(18, 18, 22, 0.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid #24242b;
+      border-radius: 16px;
+      padding: 16px 18px;
+      margin: 10px 0;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
 
-        .copy-btn {
-            width: 100%;
-            margin-top: 10px;
-            border: 0;
-            border-radius: 9px;
-            padding: 9px;
-            background: #eee;
-            color: #111;
-            font-weight: 700;
-            font-size: 13px;
-            cursor: pointer;
-            transition: background 0.15s, transform 0.1s;
-        }
+    .card:hover {
+      border-color: #3d3d4a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+      background: rgba(22, 22, 28, 0.8);
+    }
 
-        .copy-btn:hover {
-            background: #fff;
-        }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
 
-        .copy-btn:active {
-            transform: scale(0.98);
-        }
+    .name-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
-        /* ---- Footer ---- */
-        footer {
-            text-align: center;
-            color: #555;
-            font-size: 12px;
-            margin-top: 30px;
-            border-top: 1px solid #1a1a20;
-            padding-top: 18px;
-        }
+    .name {
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.2px;
+    }
 
-        footer a {
-            color: #6ab0f0;
-            text-decoration: none;
-        }
+    .network {
+      color: #aaa;
+      font-size: 11px;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 3px 12px;
+      border-radius: 30px;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
 
-        footer a:hover {
-            text-decoration: underline;
-        }
+    .address {
+      background: #0a0a0c;
+      border: 1px solid #1e1e26;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font: 13px/1.5 ui-monospace, 'SF Mono', Consolas, monospace;
+      color: #c8c8c8;
+      word-break: break-all;
+      user-select: all;
+      transition: border-color 0.2s;
+    }
 
-        /* ---- Toast ---- */
-        .toast {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%) translateY(20px);
-            background: #eee;
-            color: #111;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 500;
-            opacity: 0;
-            pointer-events: none;
-            transition: 0.2s;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
-        }
+    .address:hover {
+      border-color: #3a3a44;
+    }
 
-        .toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
+    .copy-btn {
+      width: 100%;
+      margin-top: 12px;
+      border: 0;
+      border-radius: 10px;
+      padding: 10px;
+      background: linear-gradient(135deg, #eee, #ddd);
+      color: #111;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      letter-spacing: 0.2px;
+    }
 
-        /* ---- Responsive ---- */
-        @media (max-width: 480px) {
-            body {
-                padding: 14px 10px;
-            }
-            h1 {
-                font-size: 24px;
-            }
-            .notes {
-                font-size: 13px;
-                padding: 14px 16px;
-            }
-            .card {
-                padding: 12px 14px;
-            }
-            .name {
-                font-size: 14px;
-            }
-            .address {
-                font-size: 11px;
-                padding: 8px 11px;
-            }
-            .wallet-title {
-                font-size: 18px;
-            }
-        }
-    </style>
+    .copy-btn i {
+      font-size: 14px;
+    }
+
+    .copy-btn:hover {
+      background: #fff;
+      transform: scale(1.01);
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+    }
+
+    .copy-btn:active {
+      transform: scale(0.97);
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      text-align: center;
+      color: #555;
+      font-size: 13px;
+      margin-top: 34px;
+      border-top: 1px solid #1a1a20;
+      padding-top: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    footer a {
+      color: #6ab0f0;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    footer a:hover {
+      color: #8ac4ff;
+      text-decoration: underline;
+    }
+
+    /* ---------- Toast ---------- */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(30px);
+      background: #1e1e26;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #eee;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .toast i {
+      color: #6fcf97;
+      font-size: 18px;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 600px) {
+      .profile {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px 18px;
+      }
+      .profile-info h2 {
+        justify-content: center;
+      }
+      .social-links {
+        justify-content: center;
+      }
+      .wallet-title {
+        font-size: 19px;
+      }
+      .card {
+        padding: 14px;
+      }
+      .address {
+        font-size: 11px;
+        padding: 10px 12px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .name {
+        font-size: 14px;
+      }
+      .network {
+        font-size: 10px;
+        padding: 2px 8px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <main>
+  <main>
 
-        <!-- Header -->
-        <header>
-            <h1>💎 Payment Addresses</h1>
-            <div class="sub">Реквизиты для оплаты</div>
-        </header>
-
-        <!-- Important Notes -->
-        <div class="notes">
-            <p>
-                <span class="note-icon">📌</span>
-                <span class="highlight">Tag / Memo не требуются</span>
-                — отправляйте напрямую по адресу.
-            </p>
-            <p>
-                <span class="note-icon">📬</span>
-                Если вашей криптовалюты нет в списке — пишите в ЛС.
-            </p>
-            <p>
-                <span class="note-icon">⚠️</span>
-                <span class="warning">Внимание!</span>
-                Отправляйте на адреса только те криптовалюты, что указаны.
-                Остальные активы будут <span class="warning">безвозвратно утеряны</span>.
-            </p>
+    <!-- ========== PROFILE ========== -->
+    <div class="profile">
+      <!-- Аватар: поместите файл avatar.png в корень репозитория -->
+      <img class="avatar" src="avatar.png" alt="Avatar" onerror="this.src='https://ui-avatars.com/api/?name=User&background=7850FF&color=fff&size=90'" />
+      <div class="profile-info">
+        <h2>
+          Ваше Имя
+          <span class="badge"><i class="fas fa-check-circle" style="color:#6fcf97;margin-right:4px;"></i> Verified</span>
+        </h2>
+        <div class="bio"><i class="fas fa-code" style="margin-right:6px;color:#6ab0f0;"></i> Developer &amp; Crypto Enthusiast</div>
+        <div class="social-links">
+          <a href="#" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+          <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="#" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" target="_blank" title="Email"><i class="fas fa-envelope"></i></a>
         </div>
+      </div>
+    </div>
 
-        <!-- ========== TRUST WALLET ========== -->
-        <div class="wallet-section">
-            <div class="wallet-title">
-                🟣 Trust Wallet
-                <span class="badge">14 активов</span>
-            </div>
+    <!-- ========== NOTES ========== -->
+    <div class="notes">
+      <p>
+        <span class="note-icon">📌</span>
+        <span class="highlight">Tag / Memo не требуются</span> — отправляйте напрямую по адресу.
+      </p>
+      <p>
+        <span class="note-icon">📬</span>
+        Если вашей криптовалюты нет в списке — пишите в ЛС.
+      </p>
+      <p>
+        <span class="note-icon">⚠️</span>
+        <span class="warning">Внимание!</span>
+        Отправляйте на адреса только те криптовалюты, что указаны.
+        Остальные активы будут <span class="warning">безвозвратно утеряны</span>.
+      </p>
+    </div>
 
-            <!-- BTC -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Bitcoin</span>
-                        <span class="network">BTC</span>
-                    </div>
-                </div>
-                <div class="address" id="tw-btc">bc1q94cr7xj5yu552d2kf8epdey3p25kxyluy24jfu</div>
-                <button class="copy-btn" onclick="copy('tw-btc')">📋 Копировать адрес</button>
-            </div>
+    <!-- ========== TRUST WALLET ========== -->
+    <div class="wallet-section">
+      <div class="wallet-title">
+        <i class="fas fa-wallet" style="color:#9b7bff;"></i> Trust Wallet
+        <span class="badge">14 активов</span>
+      </div>
 
-            <!-- BCH -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Bitcoin Cash</span>
-                        <span class="network">BCH</span>
-                    </div>
-                </div>
-                <div class="address" id="tw-bch">qz0ql04ww8nachn66t7lsnhkucznyydk8cvgrf2lp2</div>
-                <button class="copy-btn" onclick="copy('tw-bch')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- ETH -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Ethereum</span>
-                        <span class="network">ETH</span>
-                    </div>
-                </div>
-                <div class="address" id="tw-eth">0xF24c96f89081c1963D3357C9180984aFC8259029</div>
-                <button class="copy-btn" onclick="copy('tw-eth')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- ETC -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Ethereum Classic</span>
-                        <span class="network">ETC</span>
-                    </div>
-                </div>
-                <div class="address" id="tw-etc">0x665e7a714Dc03A5e93BA5BEcD63936C301AB80AB</div>
-                <button class="copy-btn" onclick="copy('tw-etc')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- DOGE -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Dogecoin</span>
-                        <span class="network">DOGE</span>
-                    </div>
-                </div>
-                <div class="address" id="tw-doge">DLQHzpJdADxTXSPPWkgVouMQgvmd5oWYPG</div>
-                <button class="copy-btn" onclick="copy('tw-doge')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- TON -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">TON</span>
-                        <span class="network">TON</span>
-                    </div>
-                </div>
-                <div class="address" id="tw-ton">UQAvOS5pVtR4S8fKO_Cqqd3HlOh5yMdiZNC2x_ySGFeb-XI-</div>
-                <button class="copy-btn" onclick="copy('tw-ton')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- LTC -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Litecoin</span>
-                        <span class="network">LTC</span>
-                    </div>
-                </div>
-                <div class="address" id="tw-ltc">ltc1qh4p72rwug75mxqhsk257g5l7yaz9vscyce22ee</div>
-                <button class="copy-btn" onclick="copy('tw-ltc')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- SOL -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Solana</span>
-                        <span class="network">SOL</span>
-                    </div>
-                </div>
-                <div class="address" id="tw-sol">5Z24rdRJeBozAxaD5uVhsdY7PJrpBQfhaWXQjBaKCrmH</div>
-                <button class="copy-btn" onclick="copy('tw-sol')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- TRX -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Tronix</span>
-                        <span class="network">TRX</span>
-                    </div>
-                </div>
-                <div class="address" id="tw-trx">TJPNz3yFoaX2rdHqNoTejQXufs4PzgzoJi</div>
-                <button class="copy-btn" onclick="copy('tw-trx')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- ZEC -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Zcash</span>
-                        <span class="network">ZEC</span>
-                    </div>
-                </div>
-                <div class="address" id="tw-zec">t1LDhVtLhNBxPouQ5SgkwvZYJ9CN1hJrwMk</div>
-                <button class="copy-btn" onclick="copy('tw-zec')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- BNB -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">BNB</span>
-                        <span class="network">BNB</span>
-                    </div>
-                </div>
-                <div class="address" id="tw-bnb">0xF24c96f89081c1963D3357C9180984aFC8259029</div>
-                <button class="copy-btn" onclick="copy('tw-bnb')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- XRP -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">XRP</span>
-                        <span class="network">XRP</span>
-                    </div>
-                </div>
-                <div class="address" id="tw-xrp">rvyZyc57Kgs4z2vsQUMGwNwpX19v9QUuD</div>
-                <button class="copy-btn" onclick="copy('tw-xrp')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- USDT (ETH) -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Tether</span>
-                        <span class="network">USDT · ETH</span>
-                    </div>
-                </div>
-                <div class="address" id="tw-usdt">0xF24c96f89081c1963D3357C9180984aFC8259029</div>
-                <button class="copy-btn" onclick="copy('tw-usdt')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- USDC (ETH) -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">USDC</span>
-                        <span class="network">USDC · ETH</span>
-                    </div>
-                </div>
-                <div class="address" id="tw-usdc">0xF24c96f89081c1963D3357C9180984aFC8259029</div>
-                <button class="copy-btn" onclick="copy('tw-usdc')">📋 Копировать адрес</button>
-            </div>
+      <!-- BTC -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name"><i class="fab fa-bitcoin" style="color:#f7931a;margin-right:4px;"></i> Bitcoin</span>
+            <span class="network">BTC</span>
+          </div>
         </div>
+        <div class="address" id="tw-btc">bc1q94cr7xj5yu552d2kf8epdey3p25kxyluy24jfu</div>
+        <button class="copy-btn" onclick="copy('tw-btc')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
 
-        <!-- ========== EXODUS ========== -->
-        <div class="wallet-section">
-            <div class="wallet-title">
-                🟢 Exodus
-                <span class="badge">13 активов</span>
-            </div>
-
-            <!-- USDT (ETH) -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Tether</span>
-                        <span class="network">USDT · ETH</span>
-                    </div>
-                </div>
-                <div class="address" id="ex-usdt">0x4A76b4138933D2b268faf0B202E31dCce15c05C9</div>
-                <button class="copy-btn" onclick="copy('ex-usdt')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- TRX + TRC-20 -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Tronix</span>
-                        <span class="network">TRX · TRC-20</span>
-                    </div>
-                </div>
-                <div class="address" id="ex-trx">TPid1Xw2LUayP5QjjzbLKPWXod4w1XU7p5</div>
-                <button class="copy-btn" onclick="copy('ex-trx')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- ETH -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Ethereum</span>
-                        <span class="network">ETH</span>
-                    </div>
-                </div>
-                <div class="address" id="ex-eth">0x4A76b4138933D2b268faf0B202E31dCce15c05C9</div>
-                <button class="copy-btn" onclick="copy('ex-eth')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- LTC -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Litecoin</span>
-                        <span class="network">LTC</span>
-                    </div>
-                </div>
-                <div class="address" id="ex-ltc">LgJub9qBxeVSSqJJtZMM6qSLfvpDWqWvsZ</div>
-                <button class="copy-btn" onclick="copy('ex-ltc')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- BTC -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Bitcoin</span>
-                        <span class="network">BTC</span>
-                    </div>
-                </div>
-                <div class="address" id="ex-btc">bc1qv5hjnt5jkhe0uu5f2krhxsc6pnnra6r4djtdh8</div>
-                <button class="copy-btn" onclick="copy('ex-btc')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- BNB -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">BNB</span>
-                        <span class="network">BNB</span>
-                    </div>
-                </div>
-                <div class="address" id="ex-bnb">0x4A76b4138933D2b268faf0B202E31dCce15c05C9</div>
-                <button class="copy-btn" onclick="copy('ex-bnb')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- SOL -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Solana</span>
-                        <span class="network">SOL</span>
-                    </div>
-                </div>
-                <div class="address" id="ex-sol">6xEDCBnmXJMhYguMVRx8EjeyhJhWko3Xq1Vy6vrXjsYs</div>
-                <button class="copy-btn" onclick="copy('ex-sol')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- ZEC -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Zcash</span>
-                        <span class="network">ZEC</span>
-                    </div>
-                </div>
-                <div class="address" id="ex-zec">t1Kf4d1MkJEMmxWhmb8VhrSsTUdSzGrBPRb</div>
-                <button class="copy-btn" onclick="copy('ex-zec')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- TON -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Toncoin</span>
-                        <span class="network">TON</span>
-                    </div>
-                </div>
-                <div class="address" id="ex-ton">UQDVy9IHrRUL38UXcZkFpKjoDUHVDeAmlWoHa-Z2_Mtx</div>
-                <button class="copy-btn" onclick="copy('ex-ton')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- ETC -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Ethereum Classic</span>
-                        <span class="network">ETC</span>
-                    </div>
-                </div>
-                <div class="address" id="ex-etc">0xFb1A21D18aE1BB48Fa13fB5F8c8730545192e112</div>
-                <button class="copy-btn" onclick="copy('ex-etc')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- DOGE -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">Dogecoin</span>
-                        <span class="network">DOGE</span>
-                    </div>
-                </div>
-                <div class="address" id="ex-doge">DGeQZLHLvtjsAoqmSCySU4avZ1WMBdaeoq</div>
-                <button class="copy-btn" onclick="copy('ex-doge')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- USDC (ETH) -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">USDC</span>
-                        <span class="network">USDC · ETH</span>
-                    </div>
-                </div>
-                <div class="address" id="ex-usdc">0x4A76b4138933D2b268faf0B202E31dCce15c05C9</div>
-                <button class="copy-btn" onclick="copy('ex-usdc')">📋 Копировать адрес</button>
-            </div>
-
-            <!-- XRP -->
-            <div class="card">
-                <div class="card-top">
-                    <div class="name-wrap">
-                        <span class="name">XRP</span>
-                        <span class="network">XRP</span>
-                    </div>
-                </div>
-                <div class="address" id="ex-xrp">rNuCLxXy8Yd7x1xxA7e98aLQuTjSLPciU9</div>
-                <button class="copy-btn" onclick="copy('ex-xrp')">📋 Копировать адрес</button>
-            </div>
+      <!-- BCH -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">Bitcoin Cash</span>
+            <span class="network">BCH</span>
+          </div>
         </div>
+        <div class="address" id="tw-bch">qz0ql04ww8nachn66t7lsnhkucznyydk8cvgrf2lp2</div>
+        <button class="copy-btn" onclick="copy('tw-bch')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
 
-        <!-- Footer -->
-        <footer>
-            ⚡ Всегда проверяйте сеть перед отправкой.<br />
-            По вопросам — в ЛС
-        </footer>
+      <!-- ETH -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name"><i class="fab fa-ethereum" style="color:#627eea;margin-right:4px;"></i> Ethereum</span>
+            <span class="network">ETH</span>
+          </div>
+        </div>
+        <div class="address" id="tw-eth">0xF24c96f89081c1963D3357C9180984aFC8259029</div>
+        <button class="copy-btn" onclick="copy('tw-eth')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
 
-    </main>
+      <!-- ETC -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">Ethereum Classic</span>
+            <span class="network">ETC</span>
+          </div>
+        </div>
+        <div class="address" id="tw-etc">0x665e7a714Dc03A5e93BA5BEcD63936C301AB80AB</div>
+        <button class="copy-btn" onclick="copy('tw-etc')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
 
-    <!-- Toast -->
-    <div class="toast" id="toast">✅ Адрес скопирован</div>
+      <!-- DOGE -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name"><i class="fas fa-dog" style="color:#c2a633;margin-right:4px;"></i> Dogecoin</span>
+            <span class="network">DOGE</span>
+          </div>
+        </div>
+        <div class="address" id="tw-doge">DLQHzpJdADxTXSPPWkgVouMQgvmd5oWYPG</div>
+        <button class="copy-btn" onclick="copy('tw-doge')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
 
-    <script>
-        async function copy(id) {
-            const el = document.getElementById(id);
-            if (!el) return;
-            const text = el.textContent.trim();
+      <!-- TON -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">TON</span>
+            <span class="network">TON</span>
+          </div>
+        </div>
+        <div class="address" id="tw-ton">UQAvOS5pVtR4S8fKO_Cqqd3HlOh5yMdiZNC2x_ySGFeb-XI-</div>
+        <button class="copy-btn" onclick="copy('tw-ton')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
 
-            try {
-                await navigator.clipboard.writeText(text);
-            } catch (_) {
-                const t = document.createElement("textarea");
-                t.value = text;
-                document.body.appendChild(t);
-                t.select();
-                document.execCommand("copy");
-                t.remove();
-            }
+      <!-- LTC -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">Litecoin</span>
+            <span class="network">LTC</span>
+          </div>
+        </div>
+        <div class="address" id="tw-ltc">ltc1qh4p72rwug75mxqhsk257g5l7yaz9vscyce22ee</div>
+        <button class="copy-btn" onclick="copy('tw-ltc')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
 
-            const toast = document.getElementById("toast");
-            toast.classList.add("show");
-            clearTimeout(toast._timer);
-            toast._timer = setTimeout(() => toast.classList.remove("show"), 1500);
-        }
-    </script>
+      <!-- SOL -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">Solana</span>
+            <span class="network">SOL</span>
+          </div>
+        </div>
+        <div class="address" id="tw-sol">5Z24rdRJeBozAxaD5uVhsdY7PJrpBQfhaWXQjBaKCrmH</div>
+        <button class="copy-btn" onclick="copy('tw-sol')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+
+      <!-- TRX -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">Tronix</span>
+            <span class="network">TRX</span>
+          </div>
+        </div>
+        <div class="address" id="tw-trx">TJPNz3yFoaX2rdHqNoTejQXufs4PzgzoJi</div>
+        <button class="copy-btn" onclick="copy('tw-trx')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+
+      <!-- ZEC -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">Zcash</span>
+            <span class="network">ZEC</span>
+          </div>
+        </div>
+        <div class="address" id="tw-zec">t1LDhVtLhNBxPouQ5SgkwvZYJ9CN1hJrwMk</div>
+        <button class="copy-btn" onclick="copy('tw-zec')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+
+      <!-- BNB -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">BNB</span>
+            <span class="network">BNB</span>
+          </div>
+        </div>
+        <div class="address" id="tw-bnb">0xF24c96f89081c1963D3357C9180984aFC8259029</div>
+        <button class="copy-btn" onclick="copy('tw-bnb')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+
+      <!-- XRP -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">XRP</span>
+            <span class="network">XRP</span>
+          </div>
+        </div>
+        <div class="address" id="tw-xrp">rvyZyc57Kgs4z2vsQUMGwNwpX19v9QUuD</div>
+        <button class="copy-btn" onclick="copy('tw-xrp')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+
+      <!-- USDT (ETH) -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">Tether</span>
+            <span class="network">USDT · ETH</span>
+          </div>
+        </div>
+        <div class="address" id="tw-usdt">0xF24c96f89081c1963D3357C9180984aFC8259029</div>
+        <button class="copy-btn" onclick="copy('tw-usdt')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+
+      <!-- USDC (ETH) -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">USDC</span>
+            <span class="network">USDC · ETH</span>
+          </div>
+        </div>
+        <div class="address" id="tw-usdc">0xF24c96f89081c1963D3357C9180984aFC8259029</div>
+        <button class="copy-btn" onclick="copy('tw-usdc')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+    </div>
+
+    <!-- ========== EXODUS ========== -->
+    <div class="wallet-section">
+      <div class="wallet-title">
+        <i class="fas fa-diamond" style="color:#5fcf8a;"></i> Exodus
+        <span class="badge">13 активов</span>
+      </div>
+
+      <!-- USDT (ETH) -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">Tether</span>
+            <span class="network">USDT · ETH</span>
+          </div>
+        </div>
+        <div class="address" id="ex-usdt">0x4A76b4138933D2b268faf0B202E31dCce15c05C9</div>
+        <button class="copy-btn" onclick="copy('ex-usdt')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+
+      <!-- TRX + TRC-20 -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">Tronix</span>
+            <span class="network">TRX · TRC-20</span>
+          </div>
+        </div>
+        <div class="address" id="ex-trx">TPid1Xw2LUayP5QjjzbLKPWXod4w1XU7p5</div>
+        <button class="copy-btn" onclick="copy('ex-trx')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+
+      <!-- ETH -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">Ethereum</span>
+            <span class="network">ETH</span>
+          </div>
+        </div>
+        <div class="address" id="ex-eth">0x4A76b4138933D2b268faf0B202E31dCce15c05C9</div>
+        <button class="copy-btn" onclick="copy('ex-eth')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+
+      <!-- LTC -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">Litecoin</span>
+            <span class="network">LTC</span>
+          </div>
+        </div>
+        <div class="address" id="ex-ltc">LgJub9qBxeVSSqJJtZMM6qSLfvpDWqWvsZ</div>
+        <button class="copy-btn" onclick="copy('ex-ltc')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+
+      <!-- BTC -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">Bitcoin</span>
+            <span class="network">BTC</span>
+          </div>
+        </div>
+        <div class="address" id="ex-btc">bc1qv5hjnt5jkhe0uu5f2krhxsc6pnnra6r4djtdh8</div>
+        <button class="copy-btn" onclick="copy('ex-btc')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+
+      <!-- BNB -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">BNB</span>
+            <span class="network">BNB</span>
+          </div>
+        </div>
+        <div class="address" id="ex-bnb">0x4A76b4138933D2b268faf0B202E31dCce15c05C9</div>
+        <button class="copy-btn" onclick="copy('ex-bnb')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+
+      <!-- SOL -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">Solana</span>
+            <span class="network">SOL</span>
+          </div>
+        </div>
+        <div class="address" id="ex-sol">6xEDCBnmXJMhYguMVRx8EjeyhJhWko3Xq1Vy6vrXjsYs</div>
+        <button class="copy-btn" onclick="copy('ex-sol')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+
+      <!-- ZEC -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">Zcash</span>
+            <span class="network">ZEC</span>
+          </div>
+        </div>
+        <div class="address" id="ex-zec">t1Kf4d1MkJEMmxWhmb8VhrSsTUdSzGrBPRb</div>
+        <button class="copy-btn" onclick="copy('ex-zec')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+
+      <!-- TON -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">Toncoin</span>
+            <span class="network">TON</span>
+          </div>
+        </div>
+        <div class="address" id="ex-ton">UQDVy9IHrRUL38UXcZkFpKjoDUHVDeAmlWoHa-Z2_Mtx</div>
+        <button class="copy-btn" onclick="copy('ex-ton')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+
+      <!-- ETC -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">Ethereum Classic</span>
+            <span class="network">ETC</span>
+          </div>
+        </div>
+        <div class="address" id="ex-etc">0xFb1A21D18aE1BB48Fa13fB5F8c8730545192e112</div>
+        <button class="copy-btn" onclick="copy('ex-etc')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+
+      <!-- DOGE -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">Dogecoin</span>
+            <span class="network">DOGE</span>
+          </div>
+        </div>
+        <div class="address" id="ex-doge">DGeQZLHLvtjsAoqmSCySU4avZ1WMBdaeoq</div>
+        <button class="copy-btn" onclick="copy('ex-doge')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+
+      <!-- USDC (ETH) -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">USDC</span>
+            <span class="network">USDC · ETH</span>
+          </div>
+        </div>
+        <div class="address" id="ex-usdc">0x4A76b4138933D2b268faf0B202E31dCce15c05C9</div>
+        <button class="copy-btn" onclick="copy('ex-usdc')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+
+      <!-- XRP -->
+      <div class="card">
+        <div class="card-top">
+          <div class="name-wrap">
+            <span class="name">XRP</span>
+            <span class="network">XRP</span>
+          </div>
+        </div>
+        <div class="address" id="ex-xrp">rNuCLxXy8Yd7x1xxA7e98aLQuTjSLPciU9</div>
+        <button class="copy-btn" onclick="copy('ex-xrp')"><i class="fas fa-copy"></i> Копировать адрес</button>
+      </div>
+    </div>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+      <span><i class="fas fa-shield-alt" style="margin-right:6px;color:#6fcf97;"></i> Всегда проверяйте сеть перед отправкой.</span>
+      <span>По вопросам — <a href="#"><i class="fab fa-telegram-plane"></i> @antikorskiiy</a></span>
+      <span style="font-size:12px;color:#444;">&copy; 2026 · Hosted on GitHub Pages</span>
+    </footer>
+
+  </main>
+
+  <!-- ========== TOAST ========== -->
+  <div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i> Адрес скопирован
+  </div>
+
+  <script>
+    async function copy(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const text = el.textContent.trim();
+
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (_) {
+        const t = document.createElement("textarea");
+        t.value = text;
+        document.body.appendChild(t);
+        t.select();
+        document.execCommand("copy");
+        t.remove();
+      }
+
+      const toast = document.getElementById("toast");
+      toast.classList.add("show");
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(() => toast.classList.remove("show"), 1600);
+    }
+  </script>
 
 </body>
 </html>
